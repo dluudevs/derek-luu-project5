@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import SearchBar from './SearchBar';
 
 const Header = (props) => {
@@ -8,7 +8,7 @@ const Header = (props) => {
             <div className="wrapper">
                 <nav className="flex_row">
                     <h1>ShouldIGetIt</h1>
-                    <SearchBar handleChange={props.handleChange}/>
+                    <SearchBar handleChange={props.handleChange} handleSubmit={props.handleSubmit} userQuery={props.userQuery}/>
                 </nav>
             </div>
         </header>

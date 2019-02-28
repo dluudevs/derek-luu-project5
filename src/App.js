@@ -4,7 +4,7 @@ import Qs from 'qs';
 import Header from './Header.js';
 import './App.css';
 //import is a two way street - you only have to import once 
-    //you also import any modules that file has
+    //you also import any modules that file imported
 
 const apiKey = '1707fe563bfae1485271371502c54d58b9ec022d';
 const apiURL_games = 'https://www.giantbomb.com/api/games';
@@ -15,16 +15,24 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      userInput: ''
+      userQuery: ''
     }
   }
   
   handleChange = event => {
-    console.log(event.target.value);
+    this.setState({
+      userQuery: event.target.value
+    })
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.findGames(this.state.userQuery);
   }
 
   //call to find games
   findGames = () => {
+    console.log(`this is the value from the text input ${this.state.userQuery}`);
     axios({
       url: proxyURL,
       method: 'GET',
@@ -37,7 +45,7 @@ class App extends Component {
         params: {
           api_key: apiKey,
           format: 'json',
-          filter: 'name:zelda'
+          filter: `name:${this.state.userQuery}`
         }
       }
     })
@@ -49,7 +57,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header handleChange={this.handleChange}/>
+        <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit} userQuery={this.state.userQuery}/>
       </div>
     );
   }
@@ -60,34 +68,26 @@ export default App;
 
 //Testing area
 
-const findGames = () => {
-  axios({
-    url: proxyURL,
-    method: 'GET',
-    dataResponse: 'json',
-    paramsSerializer: function(params) {
-      return Qs.stringify(params, { arrayFormat: 'brackets' });
-    },
-    params: {
-      reqUrl: apiURL_games,
-      params: {
-        api_key: apiKey,
-        format: 'json',
-        filter: 'name:zelda'
-      }
-    }
-  })
-  .then((object) => {
-      console.log(object);
-  })
-}
+// const findGames = () => {
+//   axios({
+//     url: proxyURL,
+//     method: 'GET',
+//     dataResponse: 'json',
+//     paramsSerializer: function(params) {
+//       return Qs.stringify(params, { arrayFormat: 'brackets' });
+//     },
+//     params: {
+//       reqUrl: apiURL_games,
+//       params: {
+//         api_key: apiKey,
+//         format: 'json',
+//         filter: 'name:zelda'
+//       }
+//     }
+//   })
+//   .then((object) => {
+//       console.log(object);
+//   })
+// }
 
-findGames();
-
-//Parts:
-  //header component
-    //search bar {Component}
-      // search icon (submit button) {component}
-      // text input {component}
-  //output
-    //  
+// findGames();
