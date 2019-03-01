@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Qs from 'qs';
 import Header from './Header.js';
+import Body from './Body.js';
 import './App.css';
 //import is a two way street - you only have to import once 
     //you also import any modules that file imported
@@ -15,7 +16,8 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      userQuery: ''
+      userQuery: '',
+      results: []
     }
   }
   
@@ -31,8 +33,8 @@ class App extends Component {
   }
 
   //call to find games
+  //TODO: sort to show the newest platforms first
   findGames = () => {
-    console.log(`this is the value from the text input ${this.state.userQuery}`);
     axios({
       url: proxyURL,
       method: 'GET',
@@ -50,7 +52,11 @@ class App extends Component {
       }
     })
       .then((object) => {
-        console.log(object);
+        const searchResults = object.data.results;
+        console.log(searchResults);
+        this.setState({
+            results: searchResults
+        });
       })
   }
 
@@ -58,9 +64,11 @@ class App extends Component {
     return (
       <div>
         <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit} userQuery={this.state.userQuery}/>
+        <Body results={this.state.searchResults}/>
       </div>
     );
   }
+  //bind this.state.userQuery to SearchBar's input
   
 }
 
