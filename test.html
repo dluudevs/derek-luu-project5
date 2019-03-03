@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            const platformIds = [94, 45, 100, 12];
+
+            const gamesArray = [
+                {
+                    name: 'Zelda1',
+                    releaseYear: 2019,
+                    platform: [
+                        {
+                            id: 94,
+                            name: 'PS4'
+                        }
+                    ]
+                },
+                {
+                    name: 'Zelda2',
+                    releaseYear: 2019,
+                    platform: [
+                        {
+                            id: 30,
+                            name: 'Nintendo'
+                        },
+                        {
+                            id: 100,
+                            name: 'Cube'
+                        }
+                    ]
+                },
+                {
+                    name: 'Zelda3',
+                    releaseYear: 2019,
+                    platform: [
+                        {
+                            id: 17,
+                            name: 'Nintendo'
+                        }
+                    ]
+                }
+            ];
+
+            const gamesWithRightPlatforms = gamesArray.filter(function (game) {
+
+                return game.platform.some((item) => {
+                    return platformIds.indexOf(item.id) !== -1;
+                })
+            });
+            //filter() iterates through the array and checks for indices of the array meets the condition in the callback function - stores true values in a new array
+            // some() is the condition to filter. this method checks if at least one element meets the condition in the callback function - the reason we're doing this is because gamesArray is an array of objects, we want to check if one of the properties (platform - which holds an array) meets the condition of the callback function
+            //therefore the some() method is applied to the platform array
+            //callback function in this case is the indexOf method. indexOf checks if the array has a value in one of it's indices
+            //in this case, indexOf is checking if the platform[{id:}] from the gamesArray exists in the platformIDs array
+            //the check is being performed for every item in the platform array within every object of the gamesArray
+
+            console.log(gamesWithRightPlatforms)
+        //platform id
+
+
+        const memory = {
+
+                        html:{seen:true},
+
+                        react:{seen:false}
+
+                    }
+
+        const wordCheck = [];
+
+        for (let word in memory){
+            console.log(word.seen);
+        }
+
+
+    </script>
+</body>
+</html>

@@ -5,7 +5,7 @@ const Header = (props) => {
 
     return(
         <header>
-            <div className="wrapper">
+            <div className="container_header wrapper">
                 <nav className="flex_row">
                     <h1>ShouldIGetIt</h1>
                     <SearchBar handleChange={props.handleChange} handleSubmit={props.handleSubmit} userQuery={props.userQuery}/>
@@ -14,6 +14,5 @@ const Header = (props) => {
         </header>
     )
 }
-
 
 export default Header;
