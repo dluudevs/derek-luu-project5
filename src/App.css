@@ -19,24 +19,16 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 html {
   font-size: 125%;
+  font-family: 'Roboto', sans-serif;
 }
 
-#root{
+#root h2, #root h3{
   font-family: 'Cabin', sans-serif;
 }
 
 h1 {
   font-family: 'Righteous', cursive;
   color: whitesmoke;
-  /* font-size: 2.4rem; */
-}
-
-h2 {
-  /* font-size: 1.8rem; */
-}
-
-h3 {
-  /* font-size: 1.4rem; */
 }
 
 .wrapper {
@@ -67,27 +59,42 @@ nav.flex_row {
 
 form {
   text-align: right;
-  width: 25%;
+  width: 40%;
   margin: auto 0;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 
+
 form button {
-  /* border: none; */
-  margin-left: 2%;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+  margin-left:  2%;
   padding: 0 2.5%;
-  /* width: 25%; */
+  background: #ff2800;
+  color: whitesmoke;
+}
+
+form button:hover,
+form button:focus {
+  border: 1px solid grey;
+  color: grey;
 }
 
 form input[type="text"] {
   padding-left: 2%;
   height: 100%;
   width: 100%;
+  border-radius: 5px;
+  border:1px solid whitesmoke;
+}
+
+form input[type="text"]:focus {
+  border: 1px solid grey;
 }
 
 .container_textInput {
-  width: 75%;
+  min-width: 75%;
 }
 
 /*  BODY */
