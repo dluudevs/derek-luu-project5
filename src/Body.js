@@ -77,9 +77,10 @@ class Body extends Component {
         return <div className="gameList">{gameList}</div>
         //must return for the function to end and render what is stored in gamesList array
     }
-    
+
     render(){
         return(
+
                 <main className="wrapper">
                         { 
                             this.props.results.length > 0 ?
@@ -87,7 +88,10 @@ class Body extends Component {
                             this.showInitalGames()
                         }
                 </main>
-        ); 
+                
+
+                ); 
+                //create a div, use state to "toggleClass". if the array.length is empty show the div, else hide it.
     }
 
 }//Component

@@ -5,6 +5,7 @@ import Header from './Header.js';
 import Body from './Body.js';
 import Footer from './Footer.js';
 import './App.css';
+import './firebase.js';
 //import is a two way street - you only have to import once 
     //you also import any modules that file imported
 
@@ -30,7 +31,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-
+    //initial call on load
     axios({
       url: proxyURL,
       method: 'GET',
@@ -45,7 +46,6 @@ class App extends Component {
           format: 'json',
           filter: 'release_date:2019-12-31'
           // Filter will find games that have at least one of values in the query
-          //to get rid of unreleased games, have another method that filters out games that have null in origial_release_date
         }
       }
     })
@@ -58,10 +58,6 @@ class App extends Component {
     });
   }
 
-
-  // filterReleasedGames = gamesArray => {
-  // }
-  
   handleChange = event => {
     this.setState({
       userQuery: event.target.value
@@ -70,11 +66,14 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    this.setState({
+      initialResults: [],
+      results: []
+    });
     this.findGames(this.state.userQuery);
   }
 
   //call to find games
-  //TODO: sort to show the newest platforms first
   findGames = () => {
     axios({
       url: proxyURL,
@@ -96,22 +95,11 @@ class App extends Component {
     })
     .then((object) => {
       const searchResults = object.data.results;
-      //release date
       console.log(searchResults);
       this.setState({
           results: searchResults
       });
     })
-  }
-
-
-  //doesn't really do anything special at this point,
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.results !== this.state.results){
-      this.setState({
-        initialResults: []
-      })
-    }
   }
 
   render(){
@@ -124,13 +112,12 @@ class App extends Component {
     );
   }
 
-  
-
 }
 
 export default App;
 
 //loading while being loaded - turnary opereator already used
+//clear render while fetching data
 
 
 //additional goals

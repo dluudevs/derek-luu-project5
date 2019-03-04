@@ -104,6 +104,7 @@ form input[type="text"]:focus {
 /*  BODY */
 main {
   padding: 2.5% 0;
+  min-height: 100vh;
 }
 
 .card {
@@ -120,7 +121,6 @@ main {
 .img_container {
   width: 25%;
   margin-right: 2.5%;
-  /* max-height: 100%; */
 }
 
 .text_container {
@@ -134,7 +134,6 @@ img {
 }
 
 .description {
-  /* font-size: 1.2rem; */
   line-height: 1.2;
 }
 
