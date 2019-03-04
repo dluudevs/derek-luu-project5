@@ -25,6 +25,7 @@ class App extends Component {
       //results is responsible for passing data to components to render
       //return error while other components are waiting for data, create an init method that appends to screen when promise is fulfiled and stores the array in results
       initialResults: []
+      //for initial load
     }
   }
 
@@ -101,7 +102,6 @@ class App extends Component {
           results: searchResults
       });
     })
-    //TODO: include error handling
   }
 
 

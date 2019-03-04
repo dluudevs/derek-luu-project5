@@ -69,6 +69,7 @@ form {
 
 
 
+
 form button {
   border: 1px solid whitesmoke;
   border-radius: 5px;
@@ -76,12 +77,12 @@ form button {
   padding: 0 2.5%;
   background: #ff2800;
   color: whitesmoke;
+  transition: box-shadow 0.25s ease-in;
 }
 
 form button:hover,
 form button:focus {
-  border: 1px solid grey;
-  color: grey;
+  box-shadow: 0px 2px 0px whitesmoke;
 }
 
 form input[type="text"] {
@@ -93,7 +94,7 @@ form input[type="text"] {
 }
 
 form input[type="text"]:focus {
-  border: 1px solid grey;
+  border: 1px solid whitesmoke;
 }
 
 .container_textInput {
