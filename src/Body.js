@@ -49,18 +49,18 @@ class Body extends Component {
                 );
             }
         })
+
+        return <div className="gameList">{gameList}</div>
+        //must return for the function to end and render what is stored in gamesList array
     }
 
-    showGames = () => {
-
-        const gameList = this.props.results.map(game => {
+    showInitalGames = () => {
+        const gameList = this.props.initialResults.map(game => {
 
             let dateString = game.release_date.substring(0, 10);
-            let gameDate = new Date(dateString);
-            let stateDate = new Date(this.state.date)
 
-            if(game.image && gameDate < stateDate && game.description !== ''){
-                return (    
+            if (game.image && game.description !== '') {
+                return (
                     <div className="card flex_row" key={game.id}>
                         <div className="img_container">
                             <img src={game.image.original} alt={`Cover of ${game.name}`} />
@@ -74,23 +74,17 @@ class Body extends Component {
                 );
             }
         })
-
-        return (<div className="gameList">{gameList}</div>)
-    };
-
-    //if initial.length > 1, render initial load
-        //else load userquery
-
-        //on componentdidmount, clear initial to empty 
-
-
+        return <div className="gameList">{gameList}</div>
+        //must return for the function to end and render what is stored in gamesList array
+    }
+    
     render(){
         return(
                 <main className="wrapper">
                         { 
                             this.props.results.length > 0 ?
-                            this.showGames() : 
-                            <p>Loading Games...</p>
+                            this.showReleasedGames() : 
+                            this.showInitalGames()
                         }
                 </main>
         ); 
@@ -98,13 +92,5 @@ class Body extends Component {
 
 }//Component
 
-//render the inital load
-//componentDidUpdate, if the searchquery change, on click run a different render method
-
-// results may return more than 5, but append 5 at a time. use a condition so it isnt trying to append if there is less than 5 results
-//filter results for only items with a value in original_game_rating
 
 export default Body;
-
-//limit to 5 results only
-//filter through items that are not released yet

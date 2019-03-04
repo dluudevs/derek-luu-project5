@@ -21,9 +21,9 @@ class App extends Component {
       
       userQuery: '',
       results: [],
-      initialResults: []
       //results is responsible for passing data to components to render
       //return error while other components are waiting for data, create an init method that appends to screen when promise is fulfiled and stores the array in results
+      initialResults: []
     }
   }
 
@@ -51,7 +51,7 @@ class App extends Component {
       const searchResults = object.data.results;
       console.log(searchResults);
       this.setState({
-        results: searchResults
+        initialResults: searchResults
       })
     });
   }
@@ -103,17 +103,38 @@ class App extends Component {
     //include error handling
   }
 
+
+  //doesn't really do anything special at this point,
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.results !== this.state.results){
+      this.setState({
+        initialResults: []
+      })
+    }
+  }
+
   render(){
     return (
       <div>
         <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit} userQuery={this.state.userQuery}/>
-        <Body initialResults={this.state.initialResults} results={this.state.results} dateCheck={this.dateCheck}/>
+        <Body results={this.state.results} initialResults={this.state.initialResults}/>
       </div>
     );
   }
+
+  
+
 }
 
 export default App;
+
+//loading while being loaded - turnary opereator already used
+
+
+//additional goals
+  //user reviews button reviews appear right below the game that was selected
+    //give user option to close reviews
+  
 
 
 
