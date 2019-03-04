@@ -3,6 +3,7 @@ import axios from 'axios';
 import Qs from 'qs';
 import Header from './Header.js';
 import Body from './Body.js';
+import Footer from './Footer.js';
 import './App.css';
 //import is a two way street - you only have to import once 
     //you also import any modules that file imported
@@ -100,7 +101,7 @@ class App extends Component {
           results: searchResults
       });
     })
-    //include error handling
+    //TODO: include error handling
   }
 
 
@@ -118,6 +119,7 @@ class App extends Component {
       <div>
         <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit} userQuery={this.state.userQuery}/>
         <Body results={this.state.results} initialResults={this.state.initialResults}/>
+        <Footer />
       </div>
     );
   }

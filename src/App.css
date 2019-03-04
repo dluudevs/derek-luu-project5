@@ -41,11 +41,14 @@ h1 {
   display: flex;
 }
 
+form, footer {
+  font-family: 'Roboto', sans-serif;
+}
 
 
 /* HEADER */
 
-header {
+header, footer {
   background: #ff2800;
 }
 
@@ -135,5 +138,45 @@ img {
 }
 
 
+/*  FOOTER */
+footer {
+  font-size: 0.7rem;
+  color: whitesmoke;
+  text-align: center;
+  padding: .5% 0;
+}
 
+@media (max-width: 830px){
+  html {
+    font-size: 112.5%;
+  }
 
+  .wrapper {
+    width: 90%;
+  }
+
+}
+
+@media (max-width: 565px){
+  html {
+    font-size: 100%;
+  }
+  
+}
+
+@media (max-width: 465px){
+  nav.flex_row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1, form {
+    width: 100%;
+  }
+
+  form {
+    padding: 1.5% 0;
+    margin: 0;
+    justify-content: flex-start;
+  }
+}

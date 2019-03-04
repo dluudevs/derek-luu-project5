@@ -7,7 +7,7 @@ const SearchBar = (props) => {
         <form onSubmit={props.handleSubmit} className="flex_row">
             <div className="container_textInput">
                 <label htmlFor="query" className="visuallyHidden"></label>
-                <input type="text" placeholder="Search by game title" id="query" onChange={props.handleChange} value={props.userQuery}/>
+                <input type="text" placeholder="Search by game" id="query" onChange={props.handleChange} value={props.userQuery}/>
             </div>
             <button type="submit">Search</button>
         </form>
