@@ -14,6 +14,22 @@ const apiURL_releases = 'http://www.gamespot.com/api/releases/'
 const apiKey = '7c8c72eb22a85289937160cd744b4ef17f79669d';
 const proxyURL = 'https://proxy.hackeryou.com'
 
+//TODO:
+  //make a loading status while API call is being made
+
+  //create a modal to display more information about the game if the user is interested
+    //modal should have at least one gameplay video and a review article
+
+  //firebase
+    //start off with user auth right off the bat
+      //publi database and user database
+
+  //firebase list should appear on the right and be fixed 
+    //adjust the size of the cards if necessary
+    
+    
+
+
 class App extends Component {
   
   constructor(){
@@ -51,7 +67,6 @@ class App extends Component {
     })
     .then((object) => {
       const searchResults = object.data.results;
-      console.log(searchResults);
       this.setState({
         initialResults: searchResults
       })
@@ -93,6 +108,7 @@ class App extends Component {
         }
       }
     })
+
     .then((object) => {
       const searchResults = object.data.results;
       console.log(searchResults);
@@ -116,9 +132,7 @@ class App extends Component {
 
 export default App;
 
-//loading while being loaded - turnary opereator already used
-//clear render while fetching data
-
+//error message in Body.js
 
 //additional goals
   //user reviews button reviews appear right below the game that was selected

@@ -79,6 +79,8 @@ class Body extends Component {
     }
 
     render(){
+        console.log("results on load", this.props.initialResults);
+        console.log("results on search", this.props.results);
         return(
 
                 <main className="wrapper">
