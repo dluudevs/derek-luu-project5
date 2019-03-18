@@ -16,6 +16,7 @@ const proxyURL = 'https://proxy.hackeryou.com'
 
 //TODO:
   //make a loading status while API call is being made
+    //move API call to body, App should just pass results 
 
   //create a modal to display more information about the game if the user is interested
     //modal should have at least one gameplay video and a review article

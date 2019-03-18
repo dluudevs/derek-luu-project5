@@ -9,6 +9,11 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 .visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
+/* TODO: */
+/* Montserrat H3 */
+/* Release date change it to a smaller font or take away the font weight */
+/* In mobile remove the image? */
+
 
 /* UNIVERSALS */
 
@@ -22,11 +27,16 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+.accent-color {
+  color: red;
+  font-weight: 700;
+}
+
 #root h2, #root h3{
   font-family: 'Cabin', sans-serif;
 }
 
-h1 {
+h1, .logo-font {
   font-family: 'Righteous', cursive;
   color: whitesmoke;
 }
@@ -57,6 +67,18 @@ header {
   top: 0;
   left: 0;
   right: 0;
+}
+
+.fa-rotate-30 {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+}
+
+.fa-gamepad {
+  font-size: 1.75rem;
 }
 
 nav {
@@ -109,9 +131,36 @@ form input[type="text"]:focus {
 }
 
 /*  BODY */
-main {
-  padding: 2.5% 0;
+main.wrapper{
+  /* margin-top: 7.75%; */
+  margin-top: 17.5vh;
   min-height: 100vh;
+
+}
+
+main.wrapper .logo-font {
+  padding-top: 1%;
+  border-top: 1px solid red;
+}
+.instructions {
+  padding-left: 7.5%;
+  margin-top: 1.25%;
+  border-bottom: 1px solid red;
+}
+
+
+.instructions li {
+  margin-bottom: 0.5%;
+  padding-right: 2.5%;
+  /* list-style: none; */
+} 
+
+.instructions li:last-child {
+  padding-bottom: 1%;
+}
+
+.logo-font {
+  color: #ff2800;
 }
 
 .card {

@@ -4,6 +4,9 @@ class Body extends Component {
 
     constructor(){
         super();
+        this.state = {
+            results: []
+        }
 
         //set today's date; use date to filter results for games that are not released
         let today = new Date();
@@ -78,6 +81,19 @@ class Body extends Component {
         //must return for the function to end and render what is stored in gamesList array
     }
 
+    initialLoad = () => {
+        return (
+            <div>
+                <h2 className="logo-font">How to use:</h2>
+                <ul className="instructions">
+                    <li>Thinking about getting a new game?</li>
+                    <li>Not sure if its worth getting?</li>
+                    <li>Search the game!</li>
+                </ul>
+            </div>
+        )
+    }
+
     render(){
         console.log("results on load", this.props.initialResults);
         console.log("results on search", this.props.results);
@@ -87,7 +103,7 @@ class Body extends Component {
                         { 
                             this.props.results.length > 0 ?
                             this.showReleasedGames() : 
-                            this.showInitalGames()
+                            this.initialLoad()
                         }
                 </main>
                 
