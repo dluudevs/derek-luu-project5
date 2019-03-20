@@ -96,9 +96,6 @@ form {
   justify-content: flex-end;
 }
 
-
-
-
 form button {
   border: 1px solid whitesmoke;
   border-radius: 5px;
@@ -134,8 +131,8 @@ form input[type="text"]:focus {
 main.wrapper{
   /* margin-top: 7.75%; */
   margin-top: 17.5vh;
-  min-height: 100vh;
-
+  /* min-height: 74.75vh; */
+  min-height: 77vh;
 }
 
 main.wrapper .logo-font {
@@ -200,6 +197,10 @@ footer {
   color: whitesmoke;
   text-align: center;
   padding: .5% 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 @media (max-width: 830px){

@@ -57,30 +57,6 @@ class Body extends Component {
         //must return for the function to end and render what is stored in gamesList array
     }
 
-    showInitalGames = () => {
-        const gameList = this.props.initialResults.map(game => {
-
-            let dateString = game.release_date.substring(0, 10);
-
-            if (game.image && game.description !== '') {
-                return (
-                    <div className="card flex_row" key={game.id}>
-                        <div className="img_container">
-                            <img src={game.image.original} alt={`Cover of ${game.name}`} />
-                        </div>
-                        <div className="text_container">
-                            <h2>{game.name}</h2>
-                            <h3>{`Release Date: ${dateString}`}</h3>
-                            <p className="description">{game.description}</p>
-                        </div>
-                    </div>
-                );
-            }
-        })
-        return <div className="gameList">{gameList}</div>
-        //must return for the function to end and render what is stored in gamesList array
-    }
-
     initialLoad = () => {
         return (
             <div>
