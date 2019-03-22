@@ -82,7 +82,7 @@ header {
 }
 
 nav {
-  padding: 0.5% 0;
+  padding: 1% 0;
 }
 
 nav.flex_row {
@@ -103,12 +103,19 @@ form button {
   padding: 0 2.5%;
   background: #ff2800;
   color: whitesmoke;
-  transition: box-shadow 0.25s ease-in;
+  transition: box-shadow 0.3s ease-in,
+              transform 0.25s ease-in;
 }
 
 form button:hover,
 form button:focus {
   box-shadow: 0px 2px 0px whitesmoke;
+  transform: translatey(-2px);
+}
+
+form button:active {
+  box-shadow: none;
+  transform: translateY(0px);
 }
 
 form input[type="text"] {
@@ -129,10 +136,8 @@ form input[type="text"]:focus {
 
 /*  BODY */
 main.wrapper{
-  /* margin-top: 7.75%; */
   margin-top: 17.5vh;
-  /* min-height: 74.75vh; */
-  min-height: 77vh;
+  min-height: 75vh;
 }
 
 main.wrapper .logo-font {
@@ -197,11 +202,7 @@ footer {
   color: whitesmoke;
   text-align: center;
   padding: .5% 0;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
+} 
 
 @media (max-width: 830px){
   html {
