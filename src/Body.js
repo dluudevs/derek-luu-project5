@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 
+//body makes the API call
+//needs props from app (handlesubmit and handleuserSearch)
+    //once handleSubmit has been called change the , render loading
+
 class Body extends Component {
 
     constructor(){
@@ -30,6 +34,34 @@ class Body extends Component {
         }
     }
 
+    // findGames = () => {
+    //     axios({
+    //         url: proxyURL,
+    //         method: 'GET',
+    //         dataResponse: 'json',
+    //         paramsSerializer: function (params) {
+    //             return Qs.stringify(params, { arrayFormat: 'brackets' });
+    //         },
+    //         params: {
+    //             reqUrl: apiURL_games,
+    //             params: {
+    //                 api_key: apiKey,
+    //                 format: 'json',
+    //                 filter: `name:${this.state.userQuery}`,
+    //                 // Filter will find games that have at least one of values in the query
+    //                 sort: 'release_date:desc',
+    //             }
+    //         }
+    //     })
+    //     .then((object) => {
+    //         const searchResults = object.data.results;
+    //         console.log(searchResults);
+    //         this.setState({
+    //             results: searchResults
+    //         });
+    //     })
+    // }
+
     showReleasedGames = () => {
         const gameList = this.props.results.map(game => {
 
@@ -51,28 +83,41 @@ class Body extends Component {
                     </div>
                 );
             }
+
+            // if ()
         })
 
         return <div className="gameList">{gameList}</div>
         //must return for the function to end and render what is stored in gamesList array
     }
 
-    initialLoad = () => {
-        return (
-            <div>
-                <h2 className="logo-font">How to use:</h2>
-                <ul className="instructions">
-                    <li>Thinking about getting a new game?</li>
-                    <li>Not sure if its worth getting?</li>
-                    <li>Search the game!</li>
-                </ul>
-            </div>
-        )
+    includeShowMore = (game) => {
+        // document.getElementsByClassName('description').clientHeight() > 260 && console.log(game.name)
+        console.log(document.getElementsByClassName('description').innerHTML);
     }
 
+    initialLoad = () => {
+        if(!this.props.searchMode){
+            return (
+                <div>
+                    <h2 className="logo-font">How to use:</h2>
+                    <ul className="instructions">
+                        <li>Thinking about getting a new game?</li>
+                        <li>Not sure if its worth getting?</li>
+                        <li>Search the game!</li>
+                    </ul>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h2 className="loading">Searching for results . . .</h2>
+                </div>
+            )
+        }
+    } //this doesnt need to be called in componentDidUpdate because App sets state once handleSubmit fires, triggering render in Body 
+
     render(){
-        console.log("results on load", this.props.initialResults);
-        console.log("results on search", this.props.results);
         return(
 
                 <main className="wrapper">
@@ -82,9 +127,8 @@ class Body extends Component {
                             this.initialLoad()
                         }
                 </main>
-                
 
-                ); 
+            ); 
                 //create a div, use state to "toggleClass". if the array.length is empty show the div, else hide it.
     }
 

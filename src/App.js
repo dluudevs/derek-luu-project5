@@ -18,16 +18,18 @@ const proxyURL = 'https://proxy.hackeryou.com'
   //make a loading status while API call is being made
     //move API call to body, App should just pass results 
 
-  //create a modal to display more information about the game if the user is interested
+    
+    //create a modal to display more information about the game if the user is interested
     //modal should have at least one gameplay video and a review article
-
-  //firebase
+    
+    //firebase
     //start off with user auth right off the bat
-      //publi database and user database
-
-  //firebase list should appear on the right and be fixed 
+    //publi database and user database
+    
+    //firebase list should appear on the right and be fixed 
     //adjust the size of the cards if necessary
     
+    //load 5 results initially and then add more as the user scrolls down?
     
 
 
@@ -42,8 +44,7 @@ class App extends Component {
       results: [],
       //results is responsible for passing data to components to render
       //return error while other components are waiting for data, create an init method that appends to screen when promise is fulfiled and stores the array in results
-      initialResults: []
-      //for initial load
+      searchMode: false
     }
   }
 
@@ -66,12 +67,13 @@ class App extends Component {
         }
       }
     })
-    .then((object) => {
+    .then( object => {
       const searchResults = object.data.results;
       this.setState({
         initialResults: searchResults
       })
-    });
+    })
+    .catch(() => console.log('no results'));
   }
 
   handleChange = event => {
@@ -83,8 +85,9 @@ class App extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({
-      initialResults: [],
-      results: []
+      initialResults: [], //moving to body
+      results: [], //moving to body
+      searchMode: true
     });
     this.findGames(this.state.userQuery);
   }
@@ -123,8 +126,8 @@ class App extends Component {
     return (
       <div>
         <Header handleChange={this.handleChange} handleSubmit={this.handleSubmit} userQuery={this.state.userQuery}/>
-        <Body results={this.state.results} initialResults={this.state.initialResults}/>
-        <Footer />
+        <Body results={this.state.results} initialResults={this.state.initialResults} userQuery={this.state.userQuery} searchMode={this.state.searchMode}/>
+        {/* <Footer /> */}
       </div>
     );
   }

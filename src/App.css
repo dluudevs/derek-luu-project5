@@ -22,9 +22,10 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
   padding: 0;
 }
 
-html {
+body {
   font-size: 125%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
 }
 
 .accent-color {
@@ -32,11 +33,7 @@ html {
   font-weight: 700;
 }
 
-#root h2, #root h3{
-  font-family: 'Cabin', sans-serif;
-}
-
-h1, .logo-font {
+h1, .logo-font, .loading {
   font-family: 'Righteous', cursive;
   color: whitesmoke;
 }
@@ -51,10 +48,21 @@ h1, .logo-font {
   display: flex;
 }
 
-form, footer {
-  font-family: 'Roboto', sans-serif;
+
+h2{
+  font-family: 'Cabin', sans-serif;
+  font-size: 1.6rem;
 }
 
+h3 {
+  font-family: 'Montserrat', serif;
+  font-size: 1.2rem;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
 
 /* HEADER */
 
@@ -93,7 +101,7 @@ form {
   text-align: right;
   width: 40%;
   margin: auto 0;
-  justify-content: flex-end;
+  display: flex;
 }
 
 form button {
@@ -105,6 +113,7 @@ form button {
   color: whitesmoke;
   transition: box-shadow 0.3s ease-in,
               transform 0.25s ease-in;
+  /* flex-basis: 30%; */
 }
 
 form button:hover,
@@ -124,6 +133,7 @@ form input[type="text"] {
   width: 100%;
   border-radius: 5px;
   border:1px solid whitesmoke;
+  /* flex-basis: 60%; */
 }
 
 form input[type="text"]:focus {
@@ -135,33 +145,42 @@ form input[type="text"]:focus {
 }
 
 /*  BODY */
+
+
 main.wrapper{
+  min-height: 77vh;
+}
+
+
+main.wrapper > div{
   margin-top: 17.5vh;
-  min-height: 75vh;
 }
 
 main.wrapper .logo-font {
   padding-top: 1%;
   border-top: 1px solid red;
 }
+
 .instructions {
   padding-left: 7.5%;
   margin-top: 1.25%;
   border-bottom: 1px solid red;
 }
 
-
 .instructions li {
   margin-bottom: 0.5%;
   padding-right: 2.5%;
-  /* list-style: none; */
 } 
 
 .instructions li:last-child {
   padding-bottom: 1%;
 }
 
-.logo-font {
+.loading {
+  text-align: center;
+}
+
+.logo-font, .loading {
   color: #ff2800;
 }
 
@@ -177,8 +196,9 @@ main.wrapper .logo-font {
 }
 
 .img_container {
-  width: 25%;
+  width: 12.5vw;
   margin-right: 2.5%;
+  height: 30vh;
 }
 
 .text_container {
@@ -188,11 +208,15 @@ main.wrapper .logo-font {
 img {
   display: block;
   width: 100%;
-  max-height: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .description {
-  line-height: 1.2;
+  line-height: 1.25;
+  letter-spacing: 0.025rem;
+  height: 150px;
+  overflow-y: scroll;
 }
 
 
