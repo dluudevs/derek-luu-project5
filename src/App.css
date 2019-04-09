@@ -178,6 +178,7 @@ main.wrapper .logo-font {
 
 .loading {
   text-align: center;
+  font-weight: 400;
 }
 
 .logo-font, .loading {

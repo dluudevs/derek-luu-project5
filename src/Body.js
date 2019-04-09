@@ -1,69 +1,71 @@
 import React, {Component} from 'react';
+import axios from 'axios';
+import Qs from 'qs';
 
-//body makes the API call
-//needs props from app (handlesubmit and handleuserSearch)
-    //once handleSubmit has been called change the , render loading
+//variables for API call
+const apiURL_games = 'http://www.gamespot.com/api/games';
+const apiURL_releases = 'http://www.gamespot.com/api/releases/';
+const apiKey = '7c8c72eb22a85289937160cd744b4ef17f79669d';
+const proxyURL = 'https://proxy.hackeryou.com';
+
+
+//set today's date; use date to filter results for games that are not released
+let today = new Date();
+let dd = today.getDate();
+let mm = today.getMonth() + 1; //January is 0!
+let yyyy = today.getFullYear();
+
+if (dd < 10) {
+    dd = '0' + dd;
+}
+
+if (mm < 10) {
+    mm = '0' + mm;
+}
+
+today = yyyy + '-' + mm + '-' + dd
+//Source: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
 
 class Body extends Component {
 
     constructor(){
         super();
         this.state = {
-            results: []
-        }
-
-        //set today's date; use date to filter results for games that are not released
-        let today = new Date();
-        let dd = today.getDate();
-        let mm = today.getMonth() + 1; //January is 0!
-        let yyyy = today.getFullYear();
-
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
-
-        if (mm < 10) {
-            mm = '0' + mm;
-        }
-
-        today = yyyy + '-' + mm + '-' + dd
-        //Source: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
-
-        this.state = {
-            date: today,
+            results: [],
+            date: today
         }
     }
 
-    // findGames = () => {
-    //     axios({
-    //         url: proxyURL,
-    //         method: 'GET',
-    //         dataResponse: 'json',
-    //         paramsSerializer: function (params) {
-    //             return Qs.stringify(params, { arrayFormat: 'brackets' });
-    //         },
-    //         params: {
-    //             reqUrl: apiURL_games,
-    //             params: {
-    //                 api_key: apiKey,
-    //                 format: 'json',
-    //                 filter: `name:${this.state.userQuery}`,
-    //                 // Filter will find games that have at least one of values in the query
-    //                 sort: 'release_date:desc',
-    //             }
-    //         }
-    //     })
-    //     .then((object) => {
-    //         const searchResults = object.data.results;
-    //         console.log(searchResults);
-    //         this.setState({
-    //             results: searchResults
-    //         });
-    //     })
-    // }
+    findGames = () => {
+        axios({
+            url: proxyURL,
+            method: 'GET',
+            dataResponse: 'json',
+            paramsSerializer: function (params) {
+                return Qs.stringify(params, { arrayFormat: 'brackets' });
+            },
+            params: {
+                reqUrl: apiURL_games,
+                params: {
+                    api_key: apiKey,
+                    format: 'json',
+                    filter: `name:${this.props.userQuery}`,
+                    // Filter will find games that have at least one of values in the query
+                    sort: 'release_date:desc',
+                }
+            }
+        })
+        .then((object) => {
+            const searchResults = object.data.results;
+            console.log(searchResults);
+            this.setState({
+                results: searchResults
+            });
+        })
+    }
 
     showReleasedGames = () => {
-        const gameList = this.props.results.map(game => {
+        const gameList = this.state.results.map(game => {
 
             let dateString = game.release_date.substring(0, 10);
             let gameDate = new Date(dateString);
@@ -84,7 +86,7 @@ class Body extends Component {
                 );
             }
 
-            // if ()
+            // if () use game.description as a reference to check the number of characters
         })
 
         return <div className="gameList">{gameList}</div>
@@ -97,7 +99,7 @@ class Body extends Component {
     }
 
     initialLoad = () => {
-        if(!this.props.searchMode){
+        if(!this.props.loading){
             return (
                 <div>
                     <h2 className="logo-font">How to use:</h2>
@@ -111,25 +113,30 @@ class Body extends Component {
         } else {
             return (
                 <div>
-                    <h2 className="loading">Searching for results . . .</h2>
+                    <h2 className="loading">Searching . . .</h2>
                 </div>
             )
         }
     } //this doesnt need to be called in componentDidUpdate because App sets state once handleSubmit fires, triggering render in Body 
+
+    componentDidUpdate(prevProps, prevState){
+        if(this.props.userQuery !== prevProps.userQuery){
+            this.findGames();
+        }
+    }
 
     render(){
         return(
 
                 <main className="wrapper">
                         { 
-                            this.props.results.length > 0 ?
+                            this.state.results.length > 0 ?
                             this.showReleasedGames() : 
                             this.initialLoad()
                         }
                 </main>
 
             ); 
-                //create a div, use state to "toggleClass". if the array.length is empty show the div, else hide it.
     }
 
 }//Component
