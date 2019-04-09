@@ -57,7 +57,6 @@ class Body extends Component {
         })
         .then((object) => {
             const searchResults = object.data.results;
-            console.log(searchResults);
             this.setState({
                 results: searchResults
             });
@@ -121,6 +120,10 @@ class Body extends Component {
 
     componentDidUpdate(prevProps, prevState){
         if(this.props.userQuery !== prevProps.userQuery){
+            this.setState({
+                results: []
+            })
+            //clear the results before pushing new results into state (triggers the loading state)
             this.findGames();
         }
     }
@@ -140,6 +143,5 @@ class Body extends Component {
     }
 
 }//Component
-
 
 export default Body;

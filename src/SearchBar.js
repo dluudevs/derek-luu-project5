@@ -19,9 +19,4 @@ class SearchBar extends Component {
         );
     }
 }
-
-//props drilling (drill to lowest level)
-    //searchBar gets handleChange method from header
-    //header gets handleChange method from app.js
-//when searchBar is passing data it goes directly to where the method was created (App.js)
 export default SearchBar;

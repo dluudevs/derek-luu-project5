@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import Qs from 'qs';
 import Header from './Header.js';
 import Body from './Body.js';
-import Footer from './Footer.js';
 import './App.css';
 import './firebase.js';
 //import is a two way street - you only have to import once 
@@ -44,12 +41,10 @@ class App extends Component {
       loading: false
     }
   }
-  //only set to state after submit button is clicked
 
   handleSubmit = event => {
     event.preventDefault();
     const input = document.querySelector('#query').value
-    console.log(input);
     this.setState({
       loading: true,
       userQuery: input
