@@ -97,6 +97,10 @@ nav.flex_row {
   justify-content: space-between;
 }
 
+h1:hover {
+  cursor: pointer;
+}
+
 form {
   text-align: right;
   width: 40%;

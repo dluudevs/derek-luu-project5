@@ -11,7 +11,7 @@ class Header extends Component {
                 <header>
                     <div className="container_header wrapper">
                         <nav className="flex_row">
-                            <h1><span className="controller"><i className="fas fa-gamepad fa-rotate-30"></i></span>ShouldIGetIt</h1>
+                            <h1 onClick={() => {window.location.reload()}}><span className="controller"><i className="fas fa-gamepad fa-rotate-30"></i></span>ShouldIGetIt</h1>
                             <SearchBar handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit} userQuery={this.props.userQuery}/>
                         </nav>
                     </div>

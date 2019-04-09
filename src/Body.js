@@ -86,6 +86,8 @@ class Body extends Component {
             }
 
             // if () use game.description as a reference to check the number of characters
+            // or use overflow hidden to hide all of text
+                //if i go this route user will need visial cue to click read more, is the button enough?
         })
 
         return <div className="gameList">{gameList}</div>
