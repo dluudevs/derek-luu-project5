@@ -29,7 +29,7 @@ body {
 }
 
 .accent-color {
-  color: red;
+  color: #ff2800;
   font-weight: 700;
 }
 
@@ -150,11 +150,9 @@ form input[type="text"]:focus {
 
 /*  BODY */
 
-
-main.wrapper{
-  min-height: 77vh;
+.gamelist {
+  padding: 1px 0;
 }
-
 
 main.wrapper > div{
   margin-top: 17.5vh;
@@ -222,6 +220,12 @@ img {
   letter-spacing: 0.025rem;
   height: 150px;
   overflow-y: scroll;
+}
+
+.Modal {
+  padding: 0.5rem;
+  border: 1px solid red;
+  /* width: 100%; */
 }
 
 
