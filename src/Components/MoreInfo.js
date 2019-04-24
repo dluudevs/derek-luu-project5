@@ -39,21 +39,46 @@ class MoreInfo extends Component {
         this.setState({ modalIsOpen: false });
     }
 
-    createImageGallery = () => {
-        const imageGallery = this.props.imageResults[107502].map(image => <img src={image} />)
+    isImageLoaded = (game) => {
+        const imageResults = this.props.imageResults;
 
-        return <div className='imageGallery'>{imageGallery}</div>
+        return new Promise((resolve, reject) => {
+            if(imageResults[game.id]){
+                resolve(game);
+            }
+        })
+
+    }
+
+    showImages = (game, imageLinks = this.props.imageResults[game.id]) => {
+        const imageGallery = imageLinks.map((imageLink, i) => {
+            return <li><img src={imageLink} alt={`screenshot of ${game}`} key={`${game.id}:${i}`} /></li>
+        })
+
+        return <ul className="game_screenshots">{imageGallery}</ul>
+    }
+
+    //function wrapper for async functions - create image gallery for each game once API returns the image links
+    showImageGallery = (game) => {
+
+        return (this.isImageLoaded(game).then(this.showImages))
+
+        // if(this.props.imageResults[game.id]){
+        //     return (this.isImageLoaded(game).then(this.showImages))
+        //     // return this.showImages(game);
+        // } else if (this.props.imageResults[game.id].length < 1){
+        //     return <p>{`No images found for ${game}`}</p>
+        // }
     }
 
     render (){
-
         const game = this.props.game;
         let dateString = game.release_date.substring(0, 10);
 
         const hasImages = Object.keys(this.props.imageResults).length > 0; //checks if the object is empty - results in a boolean value
-        //keys turns all the names in the object into an arrray. allowing us to use the length property
+        // //keys turns all the keys in an object into an array. allowing us to use the length property
+        //limit the amount of images to maybe 5
 
-        console.log(hasImages);
         return (
             <div>
                 <button onClick={this.openModal}>Open Modal</button>
@@ -68,7 +93,7 @@ class MoreInfo extends Component {
                     {/* parameter is the name of the reference, this.subtitle is the actual value being assigned to the reference subtitle  */}
                     <h3>{`Release Date: ${dateString}`}</h3>
                     <p>{game.description}</p>
-                    {hasImages ? this.createImageGallery() : null}; 
+                    <div className="game_screenshots">{this.showImageGallery(game)}</div>
                     {/* setState will trigger a render, allowing us to render the button first while we're waiting for the images to load */}
                     <button onClick={this.closeModal}>close</button>
                 </Modal>

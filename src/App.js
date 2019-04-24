@@ -6,11 +6,6 @@ import './firebase.js';
 //import is a two way street - you only have to import once 
     //you also import any modules that file imported
 
-const apiURL_games = 'http://www.gamespot.com/api/games'
-const apiURL_releases = 'http://www.gamespot.com/api/releases/'
-const apiKey = '7c8c72eb22a85289937160cd744b4ef17f79669d';
-const proxyURL = 'https://proxy.hackeryou.com'
-
 //TODO:
 
     //create a modal to display more information about the game if the user is interested

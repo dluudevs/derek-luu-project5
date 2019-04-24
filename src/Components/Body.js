@@ -5,7 +5,6 @@ import MoreInfo from './MoreInfo';
 
 //variables for API call
 const apiURL_games = 'http://www.gamespot.com/api/games';
-const apiURL_images = 'http://www.gamespot.com/api/images/';
 const apiKey = '7c8c72eb22a85289937160cd744b4ef17f79669d';
 const proxyURL = 'https://proxy.hackeryou.com';
 
@@ -24,15 +23,8 @@ if (mm < 10) {
 }
 
 today = yyyy + '-' + mm + '-' + dd
-//Source: https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
-
-//make a simple API call using the gameID from a searched game
-//when the images are loaded, push all the image links into an object (gameImages) with the game ID as the key
-    //the key will hold an array of all the images in string format
-//once the modal is clicked, go to the object with the game ID and iterate over the array to append images
 
 class Body extends Component {
-
     constructor(){
         super();
         this.state = {
@@ -40,6 +32,40 @@ class Body extends Component {
             imageResults: {},
             date: today
         }
+    }
+
+    filterResults = game => {
+        const dateString = game.release_date.substring(0, 10);
+        const gameDate = new Date(dateString);
+        const stateDate = new Date(this.state.date)
+
+        return game.image && gameDate < stateDate && game.description !== ''
+    }
+
+    findGameImages = (gameId) => {
+        axios({
+            url: proxyURL,
+            method: 'GET',
+            dataResponse: 'json',
+            paramsSerializer: function (params) {
+                return Qs.stringify(params, { arrayFormat: 'brackets' });
+            },
+            params: {
+                reqUrl: `https://www.gamespot.com/api/images/?api_key=7c8c72eb22a85289937160cd744b4ef17f79669d&format=json&filter=association%3A5000-${gameId}`,
+            }
+        })
+        .then((object) => {
+            const images = object.data.results;
+            const originalImages = []
+
+            images.forEach(image => {
+                originalImages.push(image.original)
+            })
+
+            this.setState({
+                imageResults: { ...this.state.imageResults, [gameId]: originalImages } //spread previousState's array, add the new item and set state
+            })
+        })
     }
 
     findGames = () => {
@@ -62,54 +88,22 @@ class Body extends Component {
             }
         })
         .then((object) => {
-            const searchResults = object.data.results;
+            const searchResults = object.data.results.filter(this.filterResults)
+            //filter the results before setting it to state so subsequent API calls that access state are consistent with game results
+            //the array filter will call this.filterResults and pass it each item in the array, only reference to the desired callback function is necessary here
             this.setState({
                 results: searchResults
             });
         })
-        .then(() => this.findGameImages())
-    }
-
-    findGameImages = () => {
-
-        axios({
-            url: proxyURL,
-            method: 'GET',
-            dataResponse: 'json',
-            paramsSerializer: function (params) {
-                return Qs.stringify(params, { arrayFormat: 'brackets' });
-            },
-            params: {
-                reqUrl: `https://www.gamespot.com/api/images/?api_key=7c8c72eb22a85289937160cd744b4ef17f79669d&format=json&filter=association%3A5000-${this.state.results[3].id}`,
-            }
-        })
-        .then((object) => {
-            const images = object.data.results;
-            const originalImages = []
-            
-            images.forEach(image => {
-                originalImages.push(image.original)
-            })
-            
-            this.setState({
-                imageResults: {...this.state.imageResults, [this.state.results[3].id]: originalImages } //spread previousState's array, add the new item and set state
-            })
+        .then(() => {
+            this.state.results.forEach(game => this.findGameImages(game.id))
         })
     }
 
     showReleasedGames = () => {
-
-
-        // const hasImages = Object.keys(this.state.imageResults).length > 0; //checks if the object is empty - results in a boolean value
-        // //keys turns all the names in the object into an arrray. allowing us to use the length property 
-
         const gameList = this.state.results.map(game => {
 
             let dateString = game.release_date.substring(0, 10);
-            let gameDate = new Date(dateString);
-            let stateDate = new Date(this.state.date)
-
-            if (game.image && gameDate < stateDate && game.description !== '') {
                 return (
                     <div className="card flex_row" key={game.id}>
                         <div className="img_container">
@@ -119,23 +113,16 @@ class Body extends Component {
                             <h2>{game.name}</h2>
                             <h3>{`Release Date: ${dateString}`}</h3>
                             <p className="description">{game.description}</p>
-                            <MoreInfo game={game} imageResults={this.state.imageResults} />
-                            {/* {hasImages ? (<MoreInfo game={game} imageResults={this.state.imageResults} />) : null} */}
+                            <MoreInfo game={game} imageResults={this.state.imageResults}/>
                         </div>
                     </div>
                 );
-            }
-
-            // if () use game.description as a reference to check the number of characters
-            // or use overflow hidden to hide all of text
-                //if i go this route user will need visial cue to click read more, is the button enough?
         })
-
         return <div className="gameList">{gameList}</div>
         //must return for the function to end and render what is stored in gamesList array
     }
 
-    initialLoad = () => {
+    showLoadScreen = () => {
         if(!this.props.loading){
             return (
                 <div>
@@ -146,48 +133,37 @@ class Body extends Component {
                         <li>Search the game!</li>
                     </ul>
                 </div>
-            )
+            )// this only renders on inital load of the app
         } else {
             return (
                 <div>
                     <h2 className="loading">Searching . . .</h2>
                 </div>
-            )
+            )//this renders every time a search is requested
         }
-    } //this doesnt need to be called in componentDidUpdate because App sets state once handleSubmit fires, triggering render in Body 
-
-    // mountMoreInfo = (game) => {
-    //     return (
-    //         <MoreInfo game={game} imageResults={this.state.imageResults} />
-    //     )
-    // }
-
+    } //this doesnt need to be called in componentDidUpdate because App sets state once handleSubmit fires (userQuery), triggering render in Body 
 
     componentDidUpdate(prevProps, prevState){
         if(this.props.userQuery !== prevProps.userQuery){
             this.setState({
                 results: []
-            })
-            //clear the results before pushing new results into state (triggers the loading state)
+            }) //clear the results before pushing new results into state (triggers the loading state)
             this.findGames();
         }
     }
 
     render(){
-
         return(
-
                 <main className="wrapper">
                         { 
                             this.state.results.length > 0 ?
                             this.showReleasedGames() : 
-                            this.initialLoad()
+                            this.showLoadScreen()
                         }
                 </main>
 
             ); 
     }
-
-}//Component
+}
 
 export default Body;
