@@ -57,7 +57,6 @@ class App extends Component {
     this.setState({
       loading: false
     })
-    console.log('isNotLoading was called');
   }
 
 

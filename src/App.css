@@ -9,11 +9,6 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 
 .visuallyHidden:not(:focus):not(:active) { position: absolute; width: 1px; height: 1px; margin: -1px;border: 0;padding: 0;white-space: nowrap;clip-path: inset(100%);clip: rect(00 0 0);overflow: hidden;}
 
-/* TODO: */
-/* Montserrat H3 */
-/* Release date change it to a smaller font or take away the font weight */
-/* In mobile remove the image? */
-
 
 /* UNIVERSALS */
 
@@ -33,7 +28,7 @@ body {
   font-weight: 700;
 }
 
-h1, .logo-font, .loading {
+h1, .logo-font, .loading, .empty {
   font-family: 'Righteous', cursive;
   color: whitesmoke;
 }
@@ -178,12 +173,12 @@ main.wrapper .logo-font {
   padding-bottom: 1%;
 }
 
-.loading {
+.loading, .empty {
   text-align: center;
   font-weight: 400;
 }
 
-.logo-font, .loading {
+.logo-font, .loading, .empty {
   color: #ff2800;
 }
 
@@ -222,10 +217,16 @@ img {
   overflow-y: scroll;
 }
 
-.Modal {
+/* .Modal {
   padding: 0.5rem;
   border: 1px solid red;
-  /* width: 100%; */
+  width: 100%;
+} */
+
+/* MOREINFO */
+
+li.showLoading {
+  z-index: 10;
 }
 
 

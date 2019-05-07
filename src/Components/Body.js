@@ -91,9 +91,15 @@ class Body extends Component {
             const searchResults = object.data.results.filter(this.filterResults)
             //filter the results before setting it to state so subsequent API calls that access state are consistent with game results
             //the array filter will call this.filterResults and pass it each item in the array, only reference to the desired callback function is necessary here
-            this.setState({
-                results: searchResults
-            });
+            if (searchResults.length){
+                this.setState({
+                    results: searchResults
+                });
+            } else {
+                this.setState({
+                    results: false
+                })
+            }
         })
         .then(() => {
             this.state.results.forEach(game => this.findGameImages(game.id))
@@ -124,6 +130,7 @@ class Body extends Component {
 
     showLoadScreen = () => {
         if(!this.props.loading){
+            // this only renders on inital load of the app
             return (
                 <div>
                     <h2 className="logo-font">How to use:</h2>
@@ -133,21 +140,29 @@ class Body extends Component {
                         <li>Search the game!</li>
                     </ul>
                 </div>
-            )// this only renders on inital load of the app
-        } else {
+            )
+        } else if(this.state.results){
+            //this renders every time a search is requested
             return (
                 <div>
                     <h2 className="loading">Searching . . .</h2>
                 </div>
-            )//this renders every time a search is requested
+            )
+        } else {
+            return (
+                <div>
+                    <h2 className="empty">No Results Found</h2>
+                </div>
+            )
         }
     } //this doesnt need to be called in componentDidUpdate because App sets state once handleSubmit fires (userQuery), triggering render in Body 
 
     componentDidUpdate(prevProps, prevState){
         if(this.props.userQuery !== prevProps.userQuery){
+            //clear the results before pushing new results into state (triggers the loading state)
             this.setState({
                 results: []
-            }) //clear the results before pushing new results into state (triggers the loading state)
+            }) 
             this.findGames();
         }
     }
@@ -156,7 +171,7 @@ class Body extends Component {
         return(
                 <main className="wrapper">
                         { 
-                            this.state.results.length > 0 ?
+                            this.state.results.length ?
                             this.showReleasedGames() : 
                             this.showLoadScreen()
                         }

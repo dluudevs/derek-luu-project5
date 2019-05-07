@@ -19,7 +19,8 @@ class MoreInfo extends Component {
     constructor(){
         super();
         this.state = {
-            modalIsOpen: false
+            modalIsOpen: false,
+            imageGallery: {}
         }
 
         this.openModal = this.openModal.bind(this);
@@ -39,45 +40,30 @@ class MoreInfo extends Component {
         this.setState({ modalIsOpen: false });
     }
 
-    isImageLoaded = (game) => {
-        const imageResults = this.props.imageResults;
+    getImages = (game, images) => {
 
-        return new Promise((resolve, reject) => {
-            if(imageResults[game.id]){
-                resolve(game);
-            }
-        })
+        const imageGallery = []
 
-    }
+        //push 5 images to imagaGallery
+        if(images.length){
+            for (let i = 0; i <= 5; i++){
+                let image = images[i]
+                let imageItem = <li key={`${game.name}: ${i}`}><img src={image} alt={`screenshot of ${game.name}`} /></li>
+                const loadingImage = <li key={`${game.name}: ${i}`} className="showLoading">Loading Images/></li>
+                imageGallery.push(imageItem)
+            };
+            return <ul className={`${game}_screenshots`}>{imageGallery}</ul>
+        } else {
+            return <h3>No Images Found</h3>
+        }
 
-    showImages = (game, imageLinks = this.props.imageResults[game.id]) => {
-        const imageGallery = imageLinks.map((imageLink, i) => {
-            return <li><img src={imageLink} alt={`screenshot of ${game}`} key={`${game.id}:${i}`} /></li>
-        })
-
-        return <ul className="game_screenshots">{imageGallery}</ul>
-    }
-
-    //function wrapper for async functions - create image gallery for each game once API returns the image links
-    showImageGallery = (game) => {
-
-        return (this.isImageLoaded(game).then(this.showImages))
-
-        // if(this.props.imageResults[game.id]){
-        //     return (this.isImageLoaded(game).then(this.showImages))
-        //     // return this.showImages(game);
-        // } else if (this.props.imageResults[game.id].length < 1){
-        //     return <p>{`No images found for ${game}`}</p>
-        // }
-    }
+    };
 
     render (){
         const game = this.props.game;
         let dateString = game.release_date.substring(0, 10);
-
-        const hasImages = Object.keys(this.props.imageResults).length > 0; //checks if the object is empty - results in a boolean value
-        // //keys turns all the keys in an object into an array. allowing us to use the length property
-        //limit the amount of images to maybe 5
+        const images = this.props.imageResults[game.id] ? this.props.imageResults[game.id] : [];
+        //error handling, use an empty array instead. an undefined array will throw an error and stop map from running
 
         return (
             <div>
@@ -90,10 +76,9 @@ class MoreInfo extends Component {
                     contentLabel={`More Info on: ${game.name}`}
                 >
                     <h2>{game.name}</h2>
-                    {/* parameter is the name of the reference, this.subtitle is the actual value being assigned to the reference subtitle  */}
                     <h3>{`Release Date: ${dateString}`}</h3>
                     <p>{game.description}</p>
-                    <div className="game_screenshots">{this.showImageGallery(game)}</div>
+                    <div className="game_screenshots">{this.getImages(game, images)}</div>
                     {/* setState will trigger a render, allowing us to render the button first while we're waiting for the images to load */}
                     <button onClick={this.closeModal}>close</button>
                 </Modal>
