@@ -39,7 +39,7 @@ class App extends Component {
 
     this.state = {
       userQuery: '',
-      loading: false
+      loading: false,
     }
   }
 
@@ -53,9 +53,11 @@ class App extends Component {
   }
   //set userQuery to state only after submit button is pressed, allows Body to take advantage of componentDidUpdate
 
+  //refreshes the page
   isNotLoading = () => {
     this.setState({
-      loading: false
+      loading: false,
+      userQuery: ''
     })
   }
 

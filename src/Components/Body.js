@@ -34,6 +34,12 @@ class Body extends Component {
         }
     };
 
+    clearResults = () => {
+        this.setState({
+            results: []
+        })
+    }
+
     filterResults = game => {
         const dateString = game.release_date.substring(0, 10);
         const gameDate = new Date(dateString);
@@ -164,8 +170,15 @@ class Body extends Component {
             this.setState({
                 results: []
             }) 
-            this.findGames();
-        }
+            this.findGames()
+        };
+
+        //this "refreshes the page"
+        if(this.props.loading !== prevProps.loading && !this.props.loading){
+            this.setState({
+                results:[]
+            })
+        };
     }
 
     render(){

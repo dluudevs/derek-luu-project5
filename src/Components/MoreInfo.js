@@ -46,9 +46,11 @@ class MoreInfo extends Component {
         //push 6 images to imageGallery
         if(images.length){
             for (let i = 0; i < 5; i++){
-                let image = images[i]
-                let imageItem = <li key={`${game.name}: ${i}`}><img src={image} alt={`screenshot of ${game.name}`} /></li>
-                imageGallery.push(imageItem)
+                if(images[i]){
+                    let image = images[i]
+                    let imageItem = <li key={`${game.name}: ${i}`}><img src={image} alt={`screenshot of ${game.name}`} /></li>
+                    imageGallery.push(imageItem)
+                }
             };
             return <ul className={`screenshots`}>{imageGallery}</ul>
         } else {

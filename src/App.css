@@ -266,7 +266,7 @@ img {
 }
 
 .modal__close {
-  margin: 1.5% 0 1.5% 1.5%;
+  margin: 3.25vh 0 3.25vh 3.25vh;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -288,12 +288,10 @@ img {
 
 .screenshots {
   list-style: none;
+  max-height: 43vh;
   display: flex;
   justify-content: space-between;
-}
-
-.screenshots img {
-  border: 2px solid red;
+  border: 1px solid red;
 }
 
 /*  FOOTER */
