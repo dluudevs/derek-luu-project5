@@ -52,7 +52,7 @@ class MoreInfo extends Component {
             };
             return <ul className={`screenshots`}>{imageGallery}</ul>
         } else {
-            return <h2 className="empty">No Images Found</h2>
+            return <h2 className="empty empty__images">{`No screenshots found for "${game.name}" :(`}</h2>
         }
 
     };

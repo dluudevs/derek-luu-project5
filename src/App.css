@@ -28,7 +28,7 @@ body {
   font-weight: 700;
 }
 
-h1, .logo__font, .loading, .empty {
+h1, .logo__font, .loading {
   font-family: 'Righteous', cursive;
   color: whitesmoke;
 }
@@ -249,9 +249,10 @@ img {
 }
 
 .empty__images {
-  margin-top: 25vh;
-  margin-bottom: 25vh;
+  margin-top: 4vh;
 }
+
+
 
 .modalButton {
   padding: 0.3rem 0.75rem;
