@@ -151,7 +151,7 @@ class Body extends Component {
         } else {
             return (
                 <div>
-                    <h2 className="empty">No Results Found</h2>
+                    <h2 className="empty empty__results">{`No results found for "${this.props.userQuery}"`}</h2>
                 </div>
             )
         }
