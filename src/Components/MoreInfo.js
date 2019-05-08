@@ -3,12 +3,11 @@ import Modal from 'react-modal';
 
 const customStyles = {
     content: {
-        top: '10%',
+        top: '12%',
         left: '10%',
-        right: '10%'
-        // bottom: 'auto',
-        // marginRight: '-50%',
-        // transform: 'translate(-50%, -50%)',
+        right: '10%',
+        bottom: '2%',
+        outline: '#ff2800'
     }
 };
 
@@ -41,20 +40,19 @@ class MoreInfo extends Component {
     }
 
     getImages = (game, images) => {
-
+        
         const imageGallery = []
 
-        //push 5 images to imagaGallery
+        //push 6 images to imageGallery
         if(images.length){
-            for (let i = 0; i <= 5; i++){
+            for (let i = 0; i < 5; i++){
                 let image = images[i]
                 let imageItem = <li key={`${game.name}: ${i}`}><img src={image} alt={`screenshot of ${game.name}`} /></li>
-                const loadingImage = <li key={`${game.name}: ${i}`} className="showLoading">Loading Images/></li>
                 imageGallery.push(imageItem)
             };
-            return <ul className={`${game}_screenshots`}>{imageGallery}</ul>
+            return <ul className={`screenshots`}>{imageGallery}</ul>
         } else {
-            return <h3>No Images Found</h3>
+            return <h2 className="empty">No Images Found</h2>
         }
 
     };
@@ -67,20 +65,24 @@ class MoreInfo extends Component {
 
         return (
             <div>
-                <button onClick={this.openModal}>Open Modal</button>
+                <button className="modalButton modal__open" onClick={this.openModal}>More Info</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
-                    style={customStyles}
+                    // style={customStyles}
                     contentLabel={`More Info on: ${game.name}`}
+                    className="modal"
+                    overlayClassName="modal__overlay"
                 >
-                    <h2>{game.name}</h2>
-                    <h3>{`Release Date: ${dateString}`}</h3>
-                    <p>{game.description}</p>
-                    <div className="game_screenshots">{this.getImages(game, images)}</div>
-                    {/* setState will trigger a render, allowing us to render the button first while we're waiting for the images to load */}
-                    <button onClick={this.closeModal}>close</button>
+                    <div className="modal__content">
+                        <h2>{game.name}</h2>
+                        <h3>{`Release Date: ${dateString}`}</h3>
+                        <p>{game.description}</p>
+                        {this.getImages(game, images)}
+                        {/* setState will trigger a render, allowing us to render the button first while we're waiting for the images to load */}
+                        <button className="modalButton modal__close" onClick={this.closeModal}>close</button>
+                    </div>
                 </Modal>
             </div>
         )

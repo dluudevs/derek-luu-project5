@@ -32,7 +32,7 @@ class Body extends Component {
             imageResults: {},
             date: today
         }
-    }
+    };
 
     filterResults = game => {
         const dateString = game.release_date.substring(0, 10);
@@ -40,7 +40,7 @@ class Body extends Component {
         const stateDate = new Date(this.state.date)
 
         return game.image && gameDate < stateDate && game.description !== ''
-    }
+    };
 
     findGameImages = (gameId) => {
         axios({
@@ -66,7 +66,7 @@ class Body extends Component {
                 imageResults: { ...this.state.imageResults, [gameId]: originalImages } //spread previousState's array, add the new item and set state
             })
         })
-    }
+    };
 
     findGames = () => {
         axios({
@@ -104,7 +104,7 @@ class Body extends Component {
         .then(() => {
             this.state.results.forEach(game => this.findGameImages(game.id))
         })
-    }
+    };
 
     showReleasedGames = () => {
         const gameList = this.state.results.map(game => {
@@ -112,10 +112,10 @@ class Body extends Component {
             let dateString = game.release_date.substring(0, 10);
                 return (
                     <div className="card flex_row" key={game.id}>
-                        <div className="img_container">
+                        <div className="img__container">
                             <img src={game.image.original} alt={`Cover of ${game.name}`} />
                         </div>
-                        <div className="text_container">
+                        <div className="text__container">
                             <h2>{game.name}</h2>
                             <h3>{`Release Date: ${dateString}`}</h3>
                             <p className="description">{game.description}</p>
@@ -126,14 +126,14 @@ class Body extends Component {
         })
         return <div className="gameList">{gameList}</div>
         //must return for the function to end and render what is stored in gamesList array
-    }
+    };
 
     showLoadScreen = () => {
         if(!this.props.loading){
             // this only renders on inital load of the app
             return (
                 <div>
-                    <h2 className="logo-font">How to use:</h2>
+                    <h2 className="logo__font">How to use:</h2>
                     <ul className="instructions">
                         <li>Thinking about getting a new game?</li>
                         <li>Not sure if its worth getting?</li>
@@ -155,7 +155,8 @@ class Body extends Component {
                 </div>
             )
         }
-    } //this doesnt need to be called in componentDidUpdate because App sets state once handleSubmit fires (userQuery), triggering render in Body 
+    }; 
+    //this doesnt need to be called in componentDidUpdate because App sets state once handleSubmit fires (userQuery), triggering render in Body 
 
     componentDidUpdate(prevProps, prevState){
         if(this.props.userQuery !== prevProps.userQuery){

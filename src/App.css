@@ -28,7 +28,7 @@ body {
   font-weight: 700;
 }
 
-h1, .logo-font, .loading, .empty {
+h1, .logo__font, .loading, .empty {
   font-family: 'Righteous', cursive;
   color: whitesmoke;
 }
@@ -66,10 +66,12 @@ header, footer {
 }
 
 header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 10;
+  margin-bottom: 2.5%;
 }
 
 .fa-rotate-30 {
@@ -139,7 +141,7 @@ form input[type="text"]:focus {
   border: 1px solid whitesmoke;
 }
 
-.container_textInput {
+.container__textInput {
   min-width: 75%;
 }
 
@@ -149,19 +151,15 @@ form input[type="text"]:focus {
   padding: 1px 0;
 }
 
-main.wrapper > div{
-  margin-top: 17.5vh;
-}
-
-main.wrapper .logo-font {
+main.wrapper .logo__font {
   padding-top: 1%;
-  border-top: 1px solid red;
+  border-top: 1px solid #ff2800;
 }
 
 .instructions {
   padding-left: 7.5%;
   margin-top: 1.25%;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid #ff2800;
 }
 
 .instructions li {
@@ -178,7 +176,7 @@ main.wrapper .logo-font {
   font-weight: 400;
 }
 
-.logo-font, .loading, .empty {
+.logo__font, .loading, .empty {
   color: #ff2800;
 }
 
@@ -186,21 +184,23 @@ main.wrapper .logo-font {
    border-top: 1px solid #ff2800;
    border-bottom: 1px solid #ff2800;
    padding: 2.5% 0;
-   margin-bottom: 4%;
+   margin-bottom: 3%;
 }
+
 
 .card h3 {
   margin-bottom: 1.5%;
 }
 
-.img_container {
+.img__container {
   width: 12.5vw;
   margin-right: 2.5%;
   height: 30vh;
 }
 
-.text_container {
+.text__container {
   width: calc(80% - 2.5%);
+  position: relative;
 }
 
 img {
@@ -213,22 +213,87 @@ img {
 .description {
   line-height: 1.25;
   letter-spacing: 0.025rem;
-  height: 150px;
-  overflow-y: scroll;
+  height: 15vh;
+  overflow-y: hidden;
 }
-
-/* .Modal {
-  padding: 0.5rem;
-  border: 1px solid red;
-  width: 100%;
-} */
 
 /* MOREINFO */
 
-li.showLoading {
-  z-index: 10;
+.modal {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  border-left: 7.5px solid #ff2800;
+  border-right: 7.5px solid #ff2800;
+  border-top: 1.5px solid #ff2800;
+  border-bottom: 1.5px solid #ff2800;
+  border-radius: 15px;
+  padding: 1.5%;
 }
 
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+
+.modal__open {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.empty__images {
+  margin-top: 25vh;
+  margin-bottom: 25vh;
+}
+
+.modalButton {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid #ff2800;
+  box-shadow: none;
+  border-radius: 5px;
+  color: #ff2800;
+  background-color: transparent;
+  font-size: 1rem;
+  transition: all 0.25s;
+}
+
+.modal__close {
+  margin: 1.5% 0 1.5% 1.5%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.modalButton:hover {
+  color: whitesmoke;
+  border: 1px solid whitesmoke;
+  background-color: #ff2800;
+}
+
+.modal__content h3 {
+  margin-bottom: 1.5%;
+}
+
+.modal__content p {
+  margin-bottom: 1.5%;
+}
+
+.screenshots {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.screenshots img {
+  border: 2px solid red;
+}
 
 /*  FOOTER */
 footer {
