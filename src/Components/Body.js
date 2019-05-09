@@ -122,8 +122,8 @@ class Body extends Component {
                             <img src={game.image.original} alt={`Cover of ${game.name}`} />
                         </div>
                         <div className="text__container">
-                            <h2>{game.name}</h2>
-                            <h3>{`Release Date: ${dateString}`}</h3>
+                            <h2 className="game__title">{game.name}</h2>
+                            <h3 className="game__date">Release Date: <span>{dateString}</span></h3>
                             <p className="description">{game.description}</p>
                             <MoreInfo game={game} imageResults={this.state.imageResults}/>
                         </div>
