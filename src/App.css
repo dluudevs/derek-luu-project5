@@ -246,6 +246,7 @@ main.wrapper .logo__font {
   background-color: whitesmoke
 }
 
+
 .modal__overlay {
   position: fixed;
   top: 0;
@@ -258,7 +259,9 @@ main.wrapper .logo__font {
 
 .modal__content {
   overflow-y: scroll;
-  max-height: 100%;
+  height: 100%;
+  position: relative;
+  /* padding-right: 0.5%; */
 }
 
 
@@ -268,31 +271,33 @@ main.wrapper .logo__font {
   bottom: 0;
 }
 
+.modal__close{
+  /* margin-right: 0.5%; */
+}
+
+.game__title__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
 .empty__images {
   margin-top: 4vh;
 }
 
 .modalButton {
   padding: 0.3rem 0.75rem;
-  border: 1px solid #ff2800;
+  border: 1.5px solid #ff2800;
   box-shadow: none;
   border-radius: 5px;
-  color: #ff2800;
-  background-color: transparent;
   font-size: 1rem;
   transition: all 0.25s;
+  color: #ff2800;
+  background-color: transparent;
 }
 
-.modal__close {
-  margin: 3.25vh 0 3.25vh 3.25vh;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
 
 .modalButton:hover {
   color: whitesmoke;
-  border: 1px solid whitesmoke;
   background-color: #ff2800;
 }
 
@@ -316,7 +321,6 @@ main.wrapper .logo__font {
   width: 70%;
   margin: 0 auto;
 } */
-
 
 /*  FOOTER */
 footer {

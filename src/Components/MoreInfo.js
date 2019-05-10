@@ -11,7 +11,6 @@ class MoreInfo extends Component {
         super();
         this.state = {
             modalIsOpen: false,
-            imageGallery: {}
         }
 
         this.openModal = this.openModal.bind(this);
@@ -24,6 +23,7 @@ class MoreInfo extends Component {
     }
 
     afterOpenModal() {
+        // this.subtitle.style.color = '#ff2800';
     }
 
     closeModal() {
@@ -44,14 +44,18 @@ class MoreInfo extends Component {
                 }
             }
             return (
+                    // Carousel components goes here, pass imagegallery as props
                     <SSCarousel className="screenshots" imageGallery={imageGallery}/>
                 )   
 
         } else {
             return <h2 className="empty empty__images">{`No screenshots found for "${game.name}" :(`}</h2>
         }
+        //have another function that checks if the props are the same as prevProps, if it is return true and run the above function
+        // else return false and show "Loading Images"
 
     };
+
 
     render (){
         const game = this.props.game;
@@ -72,14 +76,17 @@ class MoreInfo extends Component {
                     contentClassName="modal__content"
                 >
                     <div className="modal__content">
-                        <h2 className="game__title">{game.name}</h2>
+                        <div className="game__title__wrapper">
+                            <h2 className="game__title">{game.name}</h2>
+                            <button className="modalButton modal__close" onClick={this.closeModal}>Close</button>
+                        </div>
                         <h3 className="game__date">Release Date: <span>{dateString}</span></h3>
                         <p>{game.description}</p>
                         <div className="modal__carousel">
                             {this.getImages(game, images)}
                         </div>
                         {/* setState will trigger a render, allowing us to render the button first while we're waiting for the images to load */}
-                        <button className="modalButton modal__close" onClick={this.closeModal}>Close</button>
+                        {/* {this.alignButton} perform the check here and remove the class if you dont need it */}
                     </div>
                 </Modal>
             </div>
