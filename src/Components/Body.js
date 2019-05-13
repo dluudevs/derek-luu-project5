@@ -122,9 +122,11 @@ class Body extends Component {
                             <img src={game.image.original} alt={`Cover of ${game.name}`} />
                         </div>
                         <div className="text__container">
-                            <h2 className="game__title">{game.name}</h2>
-                            <h3 className="game__date">Release Date: <span>{dateString}</span></h3>
-                            <p className="description">{game.description}</p>
+                            <div className="text__container__gameInfo">
+                                <h2 className="game__title">{game.name}</h2>
+                                <h3 className="game__date">Release Date: <span>{dateString}</span></h3>
+                                <p className="game__description">{game.description}</p>
+                            </div>
                             <MoreInfo game={game} imageResults={this.state.imageResults}/>
                         </div>
                     </div>
@@ -138,7 +140,7 @@ class Body extends Component {
         if(!this.props.loading){
             // this only renders on inital load of the app
             return (
-                <div>
+                <div className="instructions__wrapper">
                     <h2 className="logo__font">How to use:</h2>
                     <ul className="instructions">
                         <li>Thinking about getting a new game?</li>

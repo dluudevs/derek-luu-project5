@@ -5,6 +5,7 @@ const SSCarousel = (props) => {
     return (
         <Carousel
             showThumbs = {false}
+            showIndicators = {false}
         >
             {props.imageGallery}
         </Carousel>

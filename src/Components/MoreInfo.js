@@ -60,7 +60,7 @@ class MoreInfo extends Component {
     render (){
         const game = this.props.game;
         let dateString = game.release_date.substring(0, 10);
-        const images = this.props.imageResults[game.id] ? this.props.imageResults[game.id] : [];
+        const images = this.props.imageResults[game.id] ? this.props.imageResults[game.id] : ['Loading images . . .'];
         //error handling, use an empty array instead. an undefined array will throw an error and stop map from running
 
         return (
@@ -81,7 +81,7 @@ class MoreInfo extends Component {
                             <button className="modalButton modal__close" onClick={this.closeModal}>Close</button>
                         </div>
                         <h3 className="game__date">Release Date: <span>{dateString}</span></h3>
-                        <p>{game.description}</p>
+                        <p className="game__description">{game.description}</p>
                         <div className="modal__carousel">
                             {this.getImages(game, images)}
                         </div>
