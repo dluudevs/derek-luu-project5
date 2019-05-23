@@ -17,7 +17,6 @@ class Header extends Component {
                     </div>
                 </header>
             )
-            //instead of refresh on click, clear the array and show initial load (its faster)
 
     }
 }

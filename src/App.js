@@ -17,6 +17,7 @@ class App extends Component {
     }
   }
 
+
   handleSubmit = event => {
     event.preventDefault();
     const input = document.querySelector('#query').value
@@ -34,7 +35,6 @@ class App extends Component {
       userQuery: ''
     })
   }
-
 
   render(){
     return (

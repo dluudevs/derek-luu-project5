@@ -13,20 +13,17 @@ class MoreInfo extends Component {
             modalIsOpen: false,
         }
 
-        this.openModal = this.openModal.bind(this);
-        this.afterOpenModal = this.afterOpenModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
     }
 
-    openModal() {
+    openModal = () => {
         this.setState({ modalIsOpen: true });
     }
 
-    afterOpenModal() {
+    afterOpenModal = () => {
         // this.subtitle.style.color = '#ff2800';
     }
 
-    closeModal() {
+    closeModal = () => {
         this.setState({ modalIsOpen: false });
     }
 
@@ -51,7 +48,6 @@ class MoreInfo extends Component {
         } else {
             return <h2 className="empty empty__images">{`No screenshots found for "${game.name}" :(`}</h2>
         }
-        //have another function that checks if the props are the same as prevProps, if it is return true and run the above function
         // else return false and show "Loading Images"
 
     };
@@ -86,7 +82,6 @@ class MoreInfo extends Component {
                             {this.getImages(game, images)}
                         </div>
                         {/* setState will trigger a render, allowing us to render the button first while we're waiting for the images to load */}
-                        {/* {this.alignButton} perform the check here and remove the class if you dont need it */}
                     </div>
                 </Modal>
             </div>
