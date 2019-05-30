@@ -284,7 +284,6 @@ main.wrapper .logo__font {
   overflow-y: scroll;
   height: 100%;
   position: relative;
-  /* padding-right: 0.5%; */
 }
 
 
@@ -331,6 +330,20 @@ main.wrapper .logo__font {
 .modal__content p {
   margin-bottom: 2.5vh;
 } 
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 90ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+}
+
 
 @media (max-width: 1200px){
   .img__container {

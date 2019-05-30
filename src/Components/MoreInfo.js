@@ -70,6 +70,7 @@ class MoreInfo extends Component {
                     className="modal"
                     overlayClassName="modal__overlay"
                     contentClassName="modal__content"
+                    closeTimeoutMS={90}
                 >
                     <div className="modal__content">
                         <div className="game__title__wrapper">

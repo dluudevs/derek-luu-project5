@@ -44,6 +44,7 @@ class Body extends Component {
         const dateString = game.release_date.substring(0, 10);
         const gameDate = new Date(dateString);
         const stateDate = new Date(this.state.date)
+        //create date objects for comparison purposes
 
         return game.image && gameDate < stateDate && game.description !== ''
     };
@@ -62,12 +63,7 @@ class Body extends Component {
         })
         .then((object) => {
             const images = object.data.results;
-            const originalImages = []
-
-            images.forEach(image => {
-                originalImages.push(image.original)
-            })
-
+            const originalImages = images.map(image => image.original)
             this.setState({
                 imageResults: { ...this.state.imageResults, [gameId]: originalImages } //spread previousState's array, add the new item and set state
             })
@@ -96,7 +92,6 @@ class Body extends Component {
         .then((object) => {
             const searchResults = object.data.results.filter(this.filterResults)
             //filter the results before setting it to state so subsequent API calls that access state are consistent with game results
-            //the array filter will call this.filterResults and pass it each item in the array, only reference to the desired callback function is necessary here
             if (searchResults.length){
                 this.setState({
                     results: searchResults
@@ -108,14 +103,16 @@ class Body extends Component {
             }
         })
         .then(() => {
-            this.state.results.forEach(game => this.findGameImages(game.id))
+            if(this.state.results){
+                this.state.results.forEach(game => this.findGameImages(game.id))
+            }
         })
     };
 
     showReleasedGames = () => {
         const gameList = this.state.results.map(game => {
-
             let dateString = game.release_date.substring(0, 10);
+
                 return (
                     <div className="card flex_row" key={game.id}>
                         <div className="img__container">
@@ -149,14 +146,15 @@ class Body extends Component {
                     </ul>
                 </div>
             )
-        } else if(this.state.results){
-            //this renders every time a search is requested
+        } else if (this.state.results){
+            //renders when the this.state.results is an empty array
             return (
                 <div>
                     <h2 className="loading">Searching . . .</h2>
                 </div>
             )
         } else {
+            //renders when this.state.results is false 
             return (
                 <div>
                     <h2 className="empty empty__results">{`No results found for "${this.props.userQuery}"`}</h2>
@@ -168,7 +166,7 @@ class Body extends Component {
 
     componentDidUpdate(prevProps, prevState){
         if(this.props.userQuery !== prevProps.userQuery){
-            //clear the results before pushing new results into state (triggers the loading state)
+            //clear the results before setting state (triggers the loading state)
             this.setState({
                 results: []
             }) 
@@ -186,13 +184,12 @@ class Body extends Component {
     render(){
         return(
                 <main className="wrapper">
-                        { 
-                            this.state.results.length ?
-                            this.showReleasedGames() : 
-                            this.showLoadScreen()
-                        }
+                    { 
+                        this.state.results.length ?
+                        this.showReleasedGames() : 
+                        this.showLoadScreen()
+                    }
                 </main>
-
             ); 
     }
 }

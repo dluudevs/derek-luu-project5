@@ -17,7 +17,6 @@ class App extends Component {
     }
   }
 
-
   handleSubmit = event => {
     event.preventDefault();
     const input = document.querySelector('#query').value
