@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Qs from 'qs';
 import MoreInfo from './MoreInfo';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 //variables for API call
 const apiURL_games = 'http://www.gamespot.com/api/games';
@@ -114,7 +116,7 @@ class Body extends Component {
             let dateString = game.release_date.substring(0, 10);
 
                 return (
-                    <div className="card flex_row" key={game.id}>
+                    <div className="card flex_row" key={game.id} data-aos="fade-up">
                         <div className="img__container">
                             <img src={game.image.original} alt={`Cover of ${game.name}`} />
                         </div>
@@ -179,6 +181,14 @@ class Body extends Component {
                 results:[]
             })
         };
+    }
+
+    componentDidMount(){
+        AOS.init({
+            duration: 1500,
+            disable:'mobile',
+            once:true
+        })
     }
 
     render(){
