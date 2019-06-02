@@ -6,12 +6,17 @@ class Header extends Component {
         super();
     }
 
+    handleClick = () => {
+        this.props.isNotLoading()
+        document.querySelector('#query').value = ""
+    }
+
     render(){
         return(
                 <header>
                     <div className="container_header wrapper">
                         <nav className="flex_row">
-                            <h1 title="Clear search results" onClick={this.props.isNotLoading}><span className="controller"><i className="fas fa-gamepad fa-rotate-30"></i></span>ShouldIGetIt</h1>
+                            <h1 title="Clear search results" onClick={this.handleClick}><span className="controller"><i className="fas fa-gamepad fa-rotate-30"></i></span>ShouldIGetIt</h1>
                             <SearchBar handleSubmit={this.props.handleSubmit} isNotLoading={this.props.isNotLoading}/>
                         </nav>
                     </div>
