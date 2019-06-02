@@ -186,7 +186,6 @@ class Body extends Component {
     componentDidMount(){
         AOS.init({
             duration: 1500,
-            disable:'mobile',
             once:true
         })
     }
