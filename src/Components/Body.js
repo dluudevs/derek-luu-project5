@@ -7,11 +7,8 @@ import 'aos/dist/aos.css';
 
 //variables for API call
 const apiURL_games = 'http://www.gamespot.com/api/games';
-const apiURL_releases = 'http://www.gamespot.com/api/releases';
 const apiKey = '7c8c72eb22a85289937160cd744b4ef17f79669d';
 const proxyURL = 'https://proxy.hackeryou.com';
-const giantBomb_games = 'https://www.giantbomb.com/api/games/';
-const giantBomb_apiKey = 'ce9caeb2d1ceee6ab55a95ebb2e6d7961f9e001d'
 
 //set today's date; use date to filter results for games that are not released
 let today = new Date();
@@ -33,7 +30,6 @@ class Body extends Component {
     constructor(){
         super();
         this.state = {
-            onLoadResults: [],
             results: [],
             imageResults: {},
             date: today
@@ -74,7 +70,7 @@ class Body extends Component {
                 imageResults: { ...this.state.imageResults, [gameId]: originalImages } //spread previousState's array, add the new item and set state
             })
         })
-    };  
+    };
 
     findGames = () => {
         axios({
@@ -115,54 +111,9 @@ class Body extends Component {
         })
     };
 
-    findGamesOnLoad = () => {
-        axios({
-            url: proxyURL,
-            method: 'GET',
-            dataResponse: 'json',
-            paramsSerializer: function (params) {
-                return Qs.stringify(params, { arrayFormat: 'brackets' });
-            },
-            params: {
-                reqUrl: giantBomb_games,
-                params: {
-                    api_key: giantBomb_apiKey,
-                    format: 'json',
-                    limit: 6,
-                    filter: `expected_release_year:${yyyy}`,
-                    // Filter will find games that have at least one of values in the query
-                    sort: 'date_added:desc',
-                }
-            }
-        })
-        .then(object => {
-            const searchResults = object.data.results.filter(game => game.name && game.image)
-            if (searchResults.length) {
-                this.setState({
-                    onLoadResults: searchResults
-                });
-            } else {
-                this.setState({
-                    onLoadResults: false,
-                })
-            }
-            console.log(searchResults)
-        })
-    }
-
     showReleasedGames = () => {
-        if(!this.props.loading){
-           const gameList = this.state.onLoadResults.map(game => {
-               return (
-                   <div>
-                        <h2>{game.name}</h2>
-                   </div>
-               )
-           })
-            return <div>{gameList}</div>
-        } else {
-            const gameList = this.state.results.map(game => {
-                let dateString = game.release_date.substring(0, 10);
+        const gameList = this.state.results.map(game => {
+            let dateString = game.release_date.substring(0, 10);
 
                 return (
                     <div className="card flex_row" key={game.id} data-aos="fade-up">
@@ -175,25 +126,29 @@ class Body extends Component {
                                 <h3 className="game__date">Release Date: <span>{dateString}</span></h3>
                                 <p className="game__description">{game.description}</p>
                             </div>
-                            <MoreInfo game={game} imageResults={this.state.imageResults} />
+                            <MoreInfo game={game} imageResults={this.state.imageResults}/>
                         </div>
                     </div>
                 );
-            })
-            return <div className="gameList">{gameList}</div>
+        })
+        return <div className="gameList">{gameList}</div>
         //must return for the function to end and render what is stored in gamesList array
-        }
     };
 
     showLoadScreen = () => {
         if(!this.props.loading){
-            // shows on initial load of the app
+            // this only renders on inital load of the app
             return (
-                <div>
-                    <h2 className="loading">Loading . . .</h2>
+                <div className="instructions__wrapper">
+                    <h2 className="logo__font">How to use:</h2>
+                    <ul className="instructions">
+                        <li>Thinking about getting a new game?</li>
+                        <li>Not sure if its worth getting?</li>
+                        <li>Search the game!</li>
+                    </ul>
                 </div>
             )
-        } else if (!this.state.results.length){
+        } else if (this.state.results){
             //renders when the this.state.results is an empty array
             return (
                 <div>
@@ -215,8 +170,7 @@ class Body extends Component {
         if(this.props.userQuery !== prevProps.userQuery){
             //clear the results before setting state (triggers the loading state)
             this.setState({
-                results: [],
-                onLoadResults: []
+                results: []
             }) 
             this.findGames()
         };
@@ -230,7 +184,6 @@ class Body extends Component {
     }
 
     componentDidMount(){
-        this.findGamesOnLoad()
         AOS.init({
             duration: 1500,
             once:true
@@ -241,7 +194,7 @@ class Body extends Component {
         return(
                 <main className="wrapper">
                     { 
-                        this.state.results.length || this.state.onLoadResults.length ?
+                        this.state.results.length ?
                         this.showReleasedGames() : 
                         this.showLoadScreen()
                     }
