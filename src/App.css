@@ -160,6 +160,46 @@ form input[type="text"]:focus {
 
 /*  BODY */
 
+.gameListOnLoad {
+  display: flex;
+  justify-content: space-between;
+  padding: 2.25% 0;
+}
+
+.gameOnLoad {
+  border-radius: 5px;
+  border: 1px solid gainsboro;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 18.5%;
+  height: 300px;
+}
+
+.gameOnLoad:hover {
+  cursor: pointer;
+}
+
+.gameOnLoad:hover h2 {
+  text-decoration: underline;
+}
+
+
+.imgContainerOnLoad img {
+  display: block;
+  flex: 1;
+  height: 225px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.textContainerOnLoad {
+  display: flex;
+  flex-direction: flex-start;
+  height: 50px;
+  overflow: hidden;
+}
+
 .gamelist {
   padding: 1px 0;
 }
@@ -203,10 +243,16 @@ main.wrapper .logo__font {
 
 .game__title {
   color: #ff2800;
+  font-weight: 500;
 }
 
-.game__title {
-  font-weight: 500;
+.game__title--heavy {
+  font-weight: 700;
+}
+
+.game__title--onLoad {
+  font-size: 1.25rem;
+  padding: 0 0.75rem;
 }
 
 .game__date {

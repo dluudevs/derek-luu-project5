@@ -128,7 +128,7 @@ class Body extends Component {
                 params: {
                     api_key: giantBomb_apiKey,
                     format: 'json',
-                    limit: 6,
+                    limit: 5,
                     filter: `expected_release_year:${yyyy}`,
                     // Filter will find games that have at least one of values in the query
                     sort: 'date_added:desc',
@@ -154,12 +154,24 @@ class Body extends Component {
         if(!this.props.loading){
            const gameList = this.state.onLoadResults.map(game => {
                return (
-                   <div>
-                        <h2>{game.name}</h2>
+                   <div key={game.id} className="gameOnLoad">
+                        <div className="imgContainerOnLoad">
+                            <img src={game.image.original_url} alt={`Cover of ${game.name}`}/>
+                        </div>
+                        <div className="textContainerOnLoad">
+                            <h2 className="game__title game__title--onLoad">{game.name}</h2>
+                        </div>
                    </div>
                )
            })
-            return <div>{gameList}</div>
+            return (
+                <div>
+                    <h2 className="game__title game__title--heavy">Recently Added Games</h2>
+                    <div className="gameListOnLoad">
+                        {gameList}
+                    </div>
+                </div>
+                )
         } else {
             const gameList = this.state.results.map(game => {
                 let dateString = game.release_date.substring(0, 10);
