@@ -266,7 +266,8 @@ main.wrapper .logo__font {
   border-bottom: 1.5px solid #ff2800;
   border-radius: 15px;
   padding: 1.5%;
-  background-color: whitesmoke
+  background-color: whitesmoke;
+  overflow-y: hidden;
 }
 
 

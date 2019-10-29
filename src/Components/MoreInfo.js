@@ -19,10 +19,6 @@ class MoreInfo extends Component {
         this.setState({ modalIsOpen: true });
     }
 
-    afterOpenModal = () => {
-        // this.subtitle.style.color = '#ff2800';
-    }
-
     closeModal = () => {
         this.setState({ modalIsOpen: false });
     }
@@ -51,6 +47,17 @@ class MoreInfo extends Component {
         // else return false and show "Loading Images"
 
     };
+
+    componentDidUpdate(){
+        const bodyStyle = document.body.style;
+        if(this.state.modalIsOpen){
+            bodyStyle.overflow = "hidden"
+            bodyStyle.height = "100%";
+        } else {
+            bodyStyle.overflow = "auto"
+            bodyStyle.height = "auto";
+        }
+    }
 
 
     render (){
