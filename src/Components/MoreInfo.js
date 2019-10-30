@@ -71,7 +71,6 @@ class MoreInfo extends Component {
                 <button className="modalButton modal__open" onClick={this.openModal}>More Info</button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
                     contentLabel={`More Info on: ${game.name}`}
                     className="modal"

@@ -7,7 +7,6 @@ import './firebase.js';
     //you also import any modules that file imported
     
 class App extends Component {
-  
   constructor(){
     super();
 
