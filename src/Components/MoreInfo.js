@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 import SSCarousel from './Carousel';
-import "react-responsive-carousel/lib/styles/carousel.css";
 
 Modal.setAppElement('#root');
 //for screenreader users, other content is hidden when modal is open (react-modal takes care of this through the above method)
