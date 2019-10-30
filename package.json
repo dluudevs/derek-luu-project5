@@ -13,6 +13,9 @@
     "react-scripts": "2.1.5",
     "xml2js": "^0.4.19"
   },
+  "engines":{
+    "node": "11.11.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
