@@ -64,7 +64,6 @@ class MoreInfo extends Component {
         const game = this.props.game;
         let dateString = game.release_date.substring(0, 10);
         const images = this.props.imageResults[game.id] ? this.props.imageResults[game.id] : ['Loading images . . .'];
-        //error handling, use an empty array instead. an undefined array will throw an error and stop map from running
 
         return (
             <div>
